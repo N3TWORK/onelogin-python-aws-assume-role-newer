@@ -28,6 +28,14 @@ if [[ ! -f $ONELOGIN_SDK_JSON ]]; then
   exit 1
 fi
 
+if [[ -d $VENV_DIR ]]; then
+  source venv/bin/activate
+else
+  python3 -m venv venv
+  source venv/bin/activate
+  pip3 install -r requirements.txt
+fi
+
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
