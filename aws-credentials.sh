@@ -23,7 +23,7 @@ fi
 
 # checks if the onelogin.sdk.json file exists
 if [[ ! -f $ONELOGIN_SDK_JSON ]]; then
-  echo "Error: onelogin.sdk.json file not found in the script directory. Please create one at this path: $SCRIPT_DIR"
+  echo "Error: onelogin.sdk.json file not found in the script directory. Please create one at this (relative) path: ./$SCRIPT_DIR"
   exit 1
 fi
 
