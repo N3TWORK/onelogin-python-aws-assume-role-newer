@@ -13,7 +13,8 @@ function is_valid_email() {
 
 EMAIL=$1
 SCRIPT_DIR=$(dirname -- "$0")
-ONELOGIN_SDK_JSON="$SCRIPT_DIR/onelogin.sdk.json"
+cd $SCRIPT_DIR
+ONELOGIN_SDK_JSON="onelogin.sdk.json"
 
 # checks for the developer emails
 if ! is_valid_email "$EMAIL"; then
@@ -27,12 +28,12 @@ if [[ ! -f $ONELOGIN_SDK_JSON ]]; then
   exit 1
 fi
 
-python3 -m venv $SCRIPT_DIR/venv
-source $SCRIPT_DIR/venv/bin/activate
-pip3 install -r $SCRIPT_DIR/requirements.txt
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
 
 # for output in stdout
-python3 $SCRIPT_DIR/src/onelogin/aws-assume-role/aws-assume-role.py -a 843789 -d n3twork -z 43200 -u $EMAIL --aws-region us-east-1 --onelogin-password $(security find-internet-password -a $EMAIL -s onelogin -w) --role_order
+python3 src/onelogin/aws-assume-role/aws-assume-role.py -a 843789 -d n3twork -z 43200 -u $EMAIL --aws-region us-east-1 --onelogin-password $(security find-internet-password -a $EMAIL -s onelogin -w) --role_order
 # use this to add password: security add-internet-password -a $EMAIL -s onelogin -w
 # also remember to add the files onelogin.sdk.json and accounts.yaml inside onelogin-python-aws-assume-role folder
 
